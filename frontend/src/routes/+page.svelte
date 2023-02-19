@@ -1,8 +1,9 @@
 <script>
-	import welcome from '/workspace/RFID-Crypto-Demo/frontend/src/lib/images/albatros_horizontal-320x72.png';
-	import welcome_fallback from '/workspace/RFID-Crypto-Demo/frontend/src/lib/images/alby_logo.png';
+	import logo from '/workspace/RFID-Crypto-Demo/frontend/src/lib/images/albatros_horizontal-320x72.png';
+	import logo_fallback from '/workspace/RFID-Crypto-Demo/frontend/src/lib/images/alby_logo.png';
 	import { onMount } from 'svelte';
 	import QRCode from 'qrcode';
+	import tipJarController from '/workspace/RFID-Crypto-Demo/frontend/src/lib/controllers/TipJarController.js';
 
 	let qrCodeDataUrl = '';
 	let address = '';
@@ -11,13 +12,18 @@
 	let src = '';
 
 	onMount(async () => {
-		const qrdata = 'Hello World!';
+		const qrdata = `javascript:transferOwnership("This will be a qr used to connect your wallet")`;
 		try {
 			qrCodeDataUrl = await QRCode.toDataURL(qrdata);
 		} catch (error) {
 			console.error(error);
 		}
+		tipJarController.init();
 	});
+
+	const { tip_store } = tipJarController;
+
+	$: ({ owner } = $tip_store);
 
 	let data = JSON.stringify({
 		address: address,
@@ -28,16 +34,17 @@
 
 <svelte:head>
 	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
+	<meta name="description" content="Albatross demo app" />
 </svelte:head>
 <div>
 	<section>
 		<span class="object-scale-down object-center">
 			<picture>
-				<source srcset={welcome} type="image/webp" />
-				<img src={welcome_fallback} alt="Welcome" />
+				<source srcset={logo} type="image/webp" />
+				<img src={logo_fallback} alt="logo" />
 			</picture>
 		</span>
+		{owner}
 	</section>
 	<div class="flex justify-center items-center h-screen">
 		<img class="w-64 h-64" src={qrCodeDataUrl} alt="QR Code" />
@@ -56,7 +63,7 @@
 			width: 100%;
 		}
 
-		.welcome {
+		.logo {
 			display: block;
 			position: relative;
 			width: 100%;
@@ -64,7 +71,7 @@
 			padding: 0 0 calc(100% * 495 / 2048) 0;
 		}
 
-		.welcome img {
+		.logo img {
 			position: absolute;
 			width: 100%;
 			height: 100%;

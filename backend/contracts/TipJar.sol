@@ -59,6 +59,24 @@ contract TipJar {
         return totalTips;
     }
 
+    event OwnershipTransferred(
+        address indexed previousOwner,
+        address indexed newOwner
+    );
+
+    function transferOwnership(address payable newOwner) public {
+        require(newOwner != address(0));
+        require(msg.sender == owner);
+        emit OwnershipTransferred(owner, newOwner);
+        owner = newOwner;
+    }
+
+    function setNewOwner(address payable newOwner) public {
+        transferOwnership(newOwner);
+        emit OwnershipTransferred(owner, newOwner);
+        owner = newOwner;
+    }
+
     function sendTip(
         string memory _message,
         string memory _name

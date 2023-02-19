@@ -105,6 +105,16 @@ describe("TipJar", function () { //describe the main test
 
     })
 
+    describe("setNewOwner", function () {
+    it("should transfer ownership to the new owner", async function () {
+      const newOwnerAddress = "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65";
 
+      // Call the setNewOwner function
+      await contract.setNewOwner(newOwnerAddress);
 
+      // Check that the ownership has been transferred
+      const owner = await contract.owner();
+      expect(owner).to.equal(newOwnerAddress);
+    });
+  });
 });
