@@ -107,7 +107,8 @@ describe("TipJar", function () { //describe the main test
 
     describe("setNewOwner", function () {
     it("should transfer ownership to the new owner", async function () {
-      const newOwnerAddress = "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65";
+        const newOwnerAddress = "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65";
+        console.log(newOwnerAddress)
 
       // Call the setNewOwner function
       await contract.setNewOwner(newOwnerAddress);

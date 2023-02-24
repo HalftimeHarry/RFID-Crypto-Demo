@@ -15,11 +15,13 @@ class EthersProvider {
     get TipJarContract() {
         const contract = this.getContract({
             abi: tipJar.abi,
-            address: tipJar.address
+            address: tipJar.address,
         });
+
         return {
-            getCurrentOwner: async () => await contract.owner()
-        }
+            getCurrentOwner: async () => await contract.owner(),
+            setNewOwner: async () => contract.setNewOwner(),
+        };
     }
 
 }
