@@ -6,6 +6,7 @@
 	import { onMount } from 'svelte';
 	import '../app.postcss';
 	import './styles.css';
+	
 
 	const onChainChanged = (chainId) => {
 		chainId = parseInt(chainId, 16);

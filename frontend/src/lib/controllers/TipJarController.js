@@ -25,6 +25,13 @@ class TipJarController{
     this.#tipJarStore.update(s => ({...s, owner }))
   }
 
+  async setNewOwner(newOwnerAddress) {
+  console.log('newOwnerAddress:', newOwnerAddress);
+    await this.ethersProvider?.TipJarContract.setNewOwner(newOwnerAddress);
+    console.log(this.ethersProvider);
+    
+}
+
 }
 
 export default new TipJarController();
