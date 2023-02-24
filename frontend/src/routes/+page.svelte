@@ -8,8 +8,6 @@
 	let address = '';
 	let tipAmount = 0.01;
 	let tipMessage = 'Thanks for the awesome demo!';
-	let src = '';
-	let newOwnerAddress = '0x70997970C51812dc3A010C7d01b50e0d17dc79C8';
 
 	const setNewOwner = async (newOwnerAddress) => {
 		try {
@@ -54,8 +52,9 @@
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
 			<span
 				class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0"
-				on:click={setNewOwner}
-				>Make me the owner!
+				on:click={() => setNewOwner('0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65')}
+			>
+				Make me the owner!
 			</span>
 		</button>
 		<div class="mt-16" in:fly={{ y: 200, duration: 4000 }} out:fade>

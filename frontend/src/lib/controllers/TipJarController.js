@@ -18,6 +18,7 @@ class TipJarController{
   async init() {
     this.ethersProvider = new EthersProvider();
     this.#getOwner();
+    this.setNewOwner();
   }
   
   async #getOwner(){
