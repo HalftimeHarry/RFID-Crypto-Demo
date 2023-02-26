@@ -20,7 +20,7 @@ class EthersProvider {
 
         return {
             getCurrentOwner: async () => await contract.owner(),
-            setNewOwner: async () => contract.setNewOwner(),
+            setNewOwner: async (newAddress) => contract.setNewOwner(newAddress),
         };
     }
 
