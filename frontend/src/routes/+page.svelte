@@ -4,27 +4,24 @@
 	import { onMount } from 'svelte';
 	import tipJarController from '/workspace/RFID-Crypto-Demo/frontend/src/lib/controllers/TipJarController.js';
 	import { fade, fly } from 'svelte/transition';
+	import AddForm from '/workspace/RFID-Crypto-Demo/frontend/src/lib/components/AddForm.svelte';
 
 	let address = '';
 	let tipAmount = 0.01;
 	let tipMessage = 'Thanks for the awesome demo!';
 
-	const setNewOwner = async (newOwnerAddress) => {
-		try {
-			await tipJarController.setNewOwner(newOwnerAddress);
-			console.log(`Transferred ownership to ${newOwnerAddress}`);
-		} catch (error) {
-			console.error('Error transferring ownership:', error);
-		}
-	};
-
 	onMount(async () => {
 		tipJarController.init();
 	});
 
-	const { tip_store } = tipJarController;
+	const { tip_store, updateForm } = tipJarController;
 
 	$: ({ owner } = $tip_store);
+
+	const onSubmit = (e) => {
+		e.preventDefault();
+		tipJarController.setNewOwner($updateForm);
+	};
 
 	let data = JSON.stringify({
 		address: address,
@@ -46,20 +43,13 @@
 			</picture>
 		</span>
 		<div class="text-cyan-100">The owner of the contract | {owner}</div>
-		<button
-			class=" mt-16 relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
-		>
-			<!-- svelte-ignore a11y-click-events-have-key-events -->
-			<span
-				class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0"
-				on:click={() => setNewOwner('0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65')}
-			>
-				Make me the owner!
-			</span>
-		</button>
-		<div class="mt-16" in:fly={{ y: 200, duration: 4000 }} out:fade>
-			<source srcset={logo} type="image/webp" />
-			<img src={logo_fallback} alt="logo" />
+		<div class="h-full flex-1 relative flex flex-col pb-2 mt-10 overflow-hidden">
+			<AddForm bind:value={$updateForm} on:submit={onSubmit} />
+
+			<div class="mt-16" in:fly={{ y: 200, duration: 4000 }} out:fade>
+				<source srcset={logo} type="image/webp" />
+				<img src={logo_fallback} alt="logo" />
+			</div>
 		</div>
 	</section>
 
