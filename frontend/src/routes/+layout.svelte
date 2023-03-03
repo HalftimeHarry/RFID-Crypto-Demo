@@ -6,7 +6,6 @@
 	import { onMount } from 'svelte';
 	import '../app.postcss';
 	import './styles.css';
-	
 
 	const onChainChanged = (chainId) => {
 		chainId = parseInt(chainId, 16);
@@ -46,8 +45,17 @@
 			{/if}
 		</main>
 
-		<footer>
-			<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
+		<footer class="bg-gray-800 py-4">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="flex justify-between">
+					<div class="text-gray-400">RFID Crypto Demo © 2023</div>
+					<div>
+						<a href="#" class="text-gray-400 hover:text-white"> Privacy Policy </a>
+						<span class="text-gray-400 mx-2">|</span>
+						<a href="#" class="text-gray-400 hover:text-white"> Terms of Use </a>
+					</div>
+				</div>
+			</div>
 		</footer>
 	</div>
 </div>

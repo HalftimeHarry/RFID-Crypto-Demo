@@ -5,8 +5,7 @@
 	export { value, disabled };
 </script>
 
-<div class="mx-auto rounded-md w-[90vw] bg-[#21212B] mb-10 relative overflow-hidden">
-	<h4 class="text-gray-500 text-center py-0.5">App name</h4>
+<div class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
 	<form
 		autocomplete="off"
 		on:submit
