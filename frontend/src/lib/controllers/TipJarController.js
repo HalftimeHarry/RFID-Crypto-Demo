@@ -1,6 +1,7 @@
 // @ts-nocheck
 import EthersProvider from "/workspace/RFID-Crypto-Demo/frontend/src/ethersProvider.js";
-import { writable,get } from "svelte/store";
+import { writable, get } from "svelte/store";
+import { ethers } from 'ethers';
 
 const baseState={
   owner: "loading owner..."
@@ -15,14 +16,31 @@ class TipJarController{
       subscribe:this.#tipJarStore.subscribe
     }
 
-    this.updateForm=writable('')
-
+    this.updateForm = writable(''),
+      this.createTip = writable({});
   }
 
   async init() {
     this.ethersProvider = new EthersProvider();
     this.#getOwner();
   }
+
+  async sendTip() {
+    const message = "Thanks for participating in our demo";
+    const name = "Albatross Demo";
+    const amount = 0.001;
+    try {
+          const tx = await this.ethersProvider.TipJarContract.sendTip(
+            message, name, amount
+          );
+          console.log(tx);
+          const response = await tx.wait(); // <-- move the wait call inside the if block
+          console.log(response);
+        } catch (error) {
+          console.log(error);
+        }
+    }
+    
 
   async setNewOwner(newAddress) {
       try {

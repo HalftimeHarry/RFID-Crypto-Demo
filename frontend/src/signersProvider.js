@@ -12,15 +12,13 @@ class SignersProvider {
         return new ethers.Contract(address, abi, this.signer);
     }
 
-    get dulliganMangerContract() {
+    get tipContract() {
         const contract = this.getContract({
             abi: tip.abi,
             address: tip.address
         });
         return {
-            getDulliger: async () => await contract.dulliger(),
-            getDulligie: async () => await contract.dulligie(),
-            getVendor: async () => await contract.vendor()
+            getOwner: async () => await contract.owner()
         }
     }
 }

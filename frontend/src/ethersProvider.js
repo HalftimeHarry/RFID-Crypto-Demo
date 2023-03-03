@@ -21,6 +21,14 @@ class EthersProvider {
         return {
             getCurrentOwner: async () => await contract.owner(),
             setNewOwner: async (newAddress) => contract.setNewOwner(newAddress),
+            sendTip: async (message, name, value) => {
+                if (value == null) {
+                    console.log("Value is null or undefined");
+                    return;
+                }
+                const valueInWei = ethers.utils.parseEther(value.toString());
+                return await contract.sendTip(message, name, {value: valueInWei});
+            }
         };
     }
 
