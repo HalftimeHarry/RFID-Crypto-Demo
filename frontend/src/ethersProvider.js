@@ -28,10 +28,12 @@ class EthersProvider {
                 }
                 const valueInWei = ethers.utils.parseEther(value.toString());
                 return await contract.sendTip(message, name, {value: valueInWei});
-            }
+            },
+            getAllTips: async () => await contract.getAllTips(),
+            witdraw: async () => await contract.withdraw()
+        }
         };
     }
 
-}
 
 export default EthersProvider;
